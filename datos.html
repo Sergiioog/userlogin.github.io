@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dreamfit</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="icon" href="assets/images/dreamfitlogo.png">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+</head>
+<body>
+    <main>
+        <div id="titulo_principal">
+            <img src="assets/images/dreamfitlogo.png" style="padding-bottom: 40px;"   alt="logo" id="dream" />
+        </div>
+        
+        <div id="resultados">
+            <div>
+                <h1>Datos del usuario</h1>
+            </div>
+            <div id="resultados_usuario">
+                <div class="result">
+                    <div class="dato">
+                        <p>Nombre:</p>
+                    </div>
+                    <div class="resultado">
+                        <p id="nom"></p>
+                    </div>
+                </div>
+                <div class="result">
+                    <div class="dato">
+                        <p>Primer apellido:</p>
+                    </div>
+                    <div class="resultado">
+                        <p id="ap1"></p>
+                    </div>
+                </div>
+                <div class="result">
+                    <div class="dato">
+                        <p>Segundo apellido:</p>
+                    </div>
+                    <div class="resultado">
+                        <p id="ap2"></p>
+                    </div>
+                </div>
+                <div class="result">
+                    <div class="dato">
+                        <p>DNI:</p>
+                    </div>
+                    <div class="resultado">
+                        <p id="dni"></p>
+                    </div>
+                </div>
+                <div class="result">
+                    <div class="dato" id="fech">
+                        <p>Fecha de nacimiento:</p>
+                    </div>
+                    <div class="resultado" id="res">
+                        <p id="fechanac"></p>
+                    </div>
+                </div>
+                <div class="result">
+                    <div class="dato">
+                        <p>Género:</p>
+                    </div>
+                    <div class="resultado">
+                        <p id="gen"></p>
+                    </div>
+                </div>
+                <div class="result">
+                    <div class="dato">
+                        <p>Correo electrónico:</p>
+                    </div>
+                    <div class="resultado">
+                        <p id="corr"></p>
+                    </div>
+                </div>
+                <div class="result">
+                    <div class="dato">
+                        <p>Contraseña:</p>
+                    </div>
+                    <div class="resultado">
+                        <p id="pasw"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+
+
+<script>
+    const datos = JSON.parse(localStorage.getItem('datosFormulario'));
+  
+    function actualizarDatosEnHTML() {
+      if (datos) {
+        document.getElementById("nom").textContent = datos.nombre_usuario;
+        document.getElementById("ap1").textContent = datos.apellido1;
+        document.getElementById("ap2").textContent = datos.apellido2;
+        document.getElementById("dni").textContent = datos.dni_usuario;
+        document.getElementById("fechanac").textContent = datos.fecha_nacimiento;
+        document.getElementById("corr").textContent = datos.email;
+        document.getElementById("pasw").textContent = datos.contrasena;
+        document.getElementById("gen").textContent = datos.sexo;
+       
+      }  
+    }
+
+    window.onload = actualizarDatosEnHTML;
+  </script>
+  
+
+</html>

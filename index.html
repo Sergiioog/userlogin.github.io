@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Dreamfit</title>
+        <link rel="stylesheet" href="index.css">
+        <link rel="icon" href="assets/images/dreamfitlogo.png">
+        
+        
+    </head>
+    <body>
+        <main>
+                
+           <div id="titulo_principal">
+            <img src="assets/images/dreamfitlogo.png" alt="logo" id="dream">
+           </div>
+            <form id="formulario_usuario" action="datos.html" method="POST">
+           
+                <div class="titulo">
+                    <h1>FORMULARIO DE REGISTRO</h1>
+                </div>
+                <div class="secciones_global">
+                    <div class="secciones1">
+                        <div class="seccion_nombre">
+                            <label for="nombre">Nombre</label>
+                            <input type="text" id="nombre" name="nombre" />
+                        </div>
+                        <div class="seccion_nombre">
+                            <label for="apellido1">Primer Apellido</label>
+                            <input type="text" id="apellido1" name="apellido1" />
+                        </div>
+                    </div>
+                    <div class="secciones2">
+                        <div class="seccion_nombre">
+                            <label for="apellido2">Segundo Apellido</label>
+                            <input type="text" id="apellido2" name="apellido2" />
+                        </div>
+                        <div class="seccion_nombre">
+                            <label for="dni">DNI</label>
+                            <input type="text" id="dni" name="dni" />
+                        </div>
+                    </div>
+                    <div class="secciones3">
+                        <div class="seccion_genero" id="gen">
+                            <div id="sex">
+                                <label for="sexo">Género</label>
+                            </div>
+                            <input type="radio" name="hm" value="h" id="hombre">Hombre
+                            <input type="radio" name="hm" value="m" id="mujer">Mujer
+                        </div>
+                        <div class="seccion_nombre" id="fechanac">
+                            <label for="anyo_nacimiento">Fecha de Nacimiento</label>
+                            <input type="date" id="anyo" name="anyo" />
+                        </div>
+                    </div>
+                    <div class="secciones3">
+                        <div class="seccion_nombre">
+                            <label for="email">Email</label>
+                            <input type="text" id="email" name="email" />
+                        </div>
+                        <div class="seccion_nombre">
+                            <label for="contrasena">Contraseña</label>
+                            <input type="text" id="contra" name="password" />
+                        </div>
+                    </div>
+
+                    <div id="div">
+                        <div id="divBoton">
+                            <input type="submit" value="Enviar" id="boton">
+                        </div>
+                    </div>
+
+                    
+
+                </div>
+
+            </form>
+
+        </main>
+    </body>
+    <script>
+        var formulario = document.getElementById("formulario_usuario");
+    
+        formulario.addEventListener("submit", function (event) {
+            event.preventDefault();
+    
+            var nombre_usuario = document.getElementById("nombre").value;
+            var apellido1 = document.getElementById("apellido1").value;
+            var apellido2 = document.getElementById("apellido2").value;
+            var dni = document.getElementById("dni").value;
+            var sexo_masculino = document.getElementById("hombre").checked;
+            var sexo_femenino = document.getElementById("mujer").checked;
+            var fecha_nacimiento = document.getElementById("anyo").value;
+            var email = document.getElementById("email").value;
+            var contrasena = document.getElementById("contra").value;
+            
+
+
+
+            
+            if (sexo_masculino) {
+                var datos_usuario = {
+                    nombre_usuario: nombre_usuario,
+                    apellido1: apellido1,
+                    apellido2: apellido2,
+                    dni_usuario: dni,
+                    fecha_nacimiento: fecha_nacimiento,
+                    email: email,
+                    contrasena: contrasena,
+                    sexo : "masculino"
+                }
+            } else if (sexo_femenino) {
+                var datos_usuario = {
+                    nombre_usuario: nombre_usuario,
+                    apellido1: apellido1,
+                    apellido2: apellido2,
+                    dni_usuario: dni,
+                    fecha_nacimiento: fecha_nacimiento,
+                    email: email,
+                    contrasena: contrasena,
+                    sexo : "femenino"
+                }
+            } else {
+                alert("Rellene los campos vacíos por favor.");
+                return;
+            }
+            
+           
+    
+            /*COMPRUEBA SI NOMBRE APELLIDO1 Y APELLIDO2 CONTIENEN NUMEROS*/
+            var numeroContiene = /\d/.test(nombre_usuario);
+            var numeroApellido1 = /\d/.test(apellido1);
+            var numeroApellido2 = /\d/.test(apellido2);
+            if (numeroContiene || numeroApellido1 || numeroApellido2) {
+                if (numeroContiene) {
+                    alert("El campo del nombre del usuario contiene números, por favor repítalo");
+                } else if(numeroApellido1) {
+                    alert("El campo del primer apellido del usuario contiene números, por favor repítalo");
+
+                }else if(numeroApellido2) {
+                    alert("El campo del segundo apellido del usuario contiene números, por favor repítalo");
+
+                }else {
+                    console.log("Formulario enviado");
+                }
+       
+                return; 
+            }
+
+            /*COMPRUEBA SI HAY ALGUN CAMPO VACIO*/
+            if(nombre_usuario.trim() === "",
+            apellido1.trim() === "",
+            apellido2.trim() === "",
+            dni.trim() === "",
+            fecha_nacimiento.trim() === "",
+            email.trim() === "",
+            contrasena.trim() === "") {
+                alert("Rellene los campos que estan vacios, por favor");
+                return;
+            }
+
+            /*COMPRUEBA LA CANTIDAD DE CARACTERES DEL DNI Y SI TIENE O NO LETRA*/
+            
+            if (dni.length !== 9 || !/^[0-9]{8}[A-Za-z]$/.test(dni)) {
+                alert("El DNI está mal, repítalo por favor");
+                return;
+            }
+            
+            /*COMPRUEBA QUE LA FECHA NO ES MAS TARDE DEL DIA DE HOY*/
+            var fechaNac = new Date(document.getElementById("anyo").value);
+            var fechaHoy = new Date();
+
+    
+
+            if (fechaNac > fechaHoy) {
+                alert("La fecha de nacimiento no puede ser mayor que la fecha actual ni menor a 1900, repítala por favor");
+                return;
+}
+            /*COMPRUEBA QUE EL GMAIL TENGA SOLO UNA ARROBA Y ACABE EN GMAIL.COM*/
+
+            var emailInput = document.getElementById("email");
+            var email = emailInput.value; // Obtener el valor del campo de correo electrónico
+
+            if (!/^[^@]+@gmail\.com$/.test(email)) {
+                alert("La dirección de correo no es válida, repítala por favor (gmail.com o número de @).");
+                return;
+            }
+
+
+
+            var JSONdatos = JSON.stringify(datos_usuario);
+            localStorage.setItem('datosFormulario', JSONdatos);
+            window.location.href = "datos.html";
+        });
+    </script>
+
+      
+</html>
